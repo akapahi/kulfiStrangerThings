@@ -7,17 +7,35 @@ A Stranger Things–style page. Ask the Upside Down a question and it answers in
 ```bash
 npm install
 cp .env.example .env     # then put your Replicate API key in .env
-npm start                # http://localhost:3000
+npm start                # http://localhost:3001
 ```
 
 | Variable         | Default       | Notes                          |
 | ---------------- | ------------- | ------------------------------ |
 | `REPLICATE_API_KEY` | none       | Required. Only the server reads it. (`REPLICATE_API_TOKEN` also works.) |
 | `REPLICATE_MODEL` | `openai/gpt-5` | Any Replicate model that takes `system_prompt` and `prompt` |
-| `PORT`           | `3000`        |                                |
-| `LIGHTS_URL`     | `http://localhost:3001` | Lights controller server. Must not be the same port as `PORT`. |
+| `PORT`           | `3001`        | Hosts like Render set this for you |
+| `LIGHTS_URL`     | `http://localhost:3000` | Lights controller server. Must be reachable *from this server*, and not the same port as `PORT`. |
+| `TRUST_PROXY`    | on            | Set to `false` only when running with no proxy in front |
 | `LIGHTS_LEAD_MS` | `4500`        | Wait after `/api/lead` before flickering |
 | `LIGHTS_FLICKER_MS` | `3200`     | Flicker duration, then the answer is spelled |
+
+## Deploying to Render
+
+Render builds from this GitHub repo. Create a **Web Service** pointing at it and set:
+
+| Setting | Value |
+| ------- | ----- |
+| Build command | `npm install` |
+| Start command | `npm start` |
+| Environment variable | `REPLICATE_API_KEY` = your key |
+
+Leave `PORT` unset — Render provides it and the server reads it. `.env` is gitignored, so the key only exists on your machine and in Render's dashboard.
+
+Two things to expect:
+
+- **The lights will not work from Render.** `LIGHTS_URL` points at `localhost`, which on Render means the Render container, not your house. The server logs a warning and the page still answers normally. To drive the real wall from the hosted site, expose the light server to the internet (e.g. a Cloudflare Tunnel) and set `LIGHTS_URL` to that public address — but note anyone visiting the site could then trigger your lights.
+- **The free tier sleeps** after ~15 minutes idle, so the first request afterwards takes ~50s to wake, plus a few seconds for Replicate to warm the model.
 
 ## Lights
 

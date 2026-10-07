@@ -158,6 +158,9 @@ async function playOnLights(answer) {
 }
 
 const app = express();
+// Behind a hosting proxy (Render, Fly, a reverse proxy), req.ip is the proxy's
+// address unless we trust it — which would put every visitor in one rate-limit bucket.
+if (process.env.TRUST_PROXY !== 'false') app.set('trust proxy', 1);
 app.use(express.json({ limit: '4kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -1,7 +1,7 @@
 {
   "name": "beyond-the-veil",
   "version": "1.0.0",
-  "description": "A haunted Ouija board that channels answers from the OpenAI API.",
+  "description": "A Stranger Things page that channels one-word answers from GPT-5 on Replicate.",
   "type": "module",
   "main": "server.js",
   "scripts": {
