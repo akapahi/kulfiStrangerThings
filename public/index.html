@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Upside Down</title>
+  <meta name="description" content="Ask the Upside Down anything. It answers in a word.">
+  <meta name="theme-color" content="#05080b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="world" aria-hidden="true">
+    <video class="backdrop" id="backdrop" autoplay muted loop playsinline preload="auto"
+      poster="/upside_down_poster.jpg" src="/upside_down_seamless_loop_2k.mp4"></video>
+    <div class="storm"></div>
+    <div class="glare"></div>
+    <canvas class="spores" id="spores"></canvas>
+    <div class="fog"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+  </div>
+
+  <main class="portal">
+    <header class="masthead">
+      <div class="title-bar"></div>
+      <h1 class="title"><span class="title__big">T</span>he <span class="title__big">U</span>pside <span class="title__big">D</span>own</h1>
+      <div class="title-bar"></div>
+      <h1 class="title title--reflection" aria-hidden="true"><span class="title__big">T</span>he <span class="title__big">U</span>pside <span class="title__big">D</span>own</h1>
+    </header>
+
+    <output class="answer" id="answer" aria-live="polite"></output>
+
+    <form class="ask" id="ask" novalidate autocomplete="off">
+      <label for="question" class="ask__prompt">Ask it anything.</label>
+      <div class="ask__field" id="field">
+        <input
+          id="question"
+          name="question"
+          type="text"
+          maxlength="200"
+          spellcheck="false"
+          placeholder="Where is Will?"
+          aria-describedby="omen"
+          required
+        >
+        <button type="submit" id="send" class="ask__send">Ask</button>
+      </div>
+      <p class="ask__omen" id="omen" role="status" aria-live="polite">It answers only questions.</p>
+    </form>
+  </main>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
