@@ -9,7 +9,7 @@ const PORT = Number(process.env.PORT) || 3001;
 const REPLICATE_API_KEY = process.env.REPLICATE_API_KEY || process.env.REPLICATE_API_TOKEN;
 const REPLICATE_MODEL = process.env.REPLICATE_MODEL || 'openai/gpt-5'; // owner/name of a model on Replicate
 const MAX_QUESTION_LENGTH = 200;
-const MAX_ANSWER_WORDS = 5;
+const MAX_ANSWER_WORDS = 2;
 const NOT_A_QUESTION = 'NOT_A_QUESTION';
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
